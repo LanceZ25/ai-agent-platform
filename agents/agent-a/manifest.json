@@ -2,8 +2,6 @@
   "name": "agent-a",
   "version": "1.0.0",
   "model": "gpt-4",
-  "entrypoint": "code/main.py",
-  "tools": ["tool1", "tool2"]
+  "tools": []
 }
 
-}
