@@ -8,88 +8,63 @@ on:
 
 jobs:
   build-test-eval:
-    name: Build, Test, Eval
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node (or Python if needed)
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: |
-          npm install ajv ajv-cli
+      - name: Install AJV
+        run: npm install ajv ajv-cli
 
       - name: Validate agent manifests
-        run: |
-          bash scripts/validate-manifests.sh
+        run: bash scripts/validate-manifests.sh
 
       - name: Run tests
-        run: |
-          bash scripts/run-tests.sh
+        run: bash scripts/run-tests.sh
 
       - name: Run evals
-        run: |
-          bash scripts/run-evals.sh
+        run: bash scripts/run-evals.sh
 
   deploy-dev:
-    name: Deploy to Dev
     runs-on: ubuntu-latest
     needs: build-test-eval
     if: github.ref == 'refs/heads/main'
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Deploy Dev
-        run: |
-          bash scripts/deploy.sh dev
+        run: bash scripts/deploy.sh dev
 
   deploy-test:
-    name: Deploy to Test
     runs-on: ubuntu-latest
     needs: deploy-dev
-    environment:
-      name: test
-      url: https://test.example.com
-
+    environment: test
     steps:
       - uses: actions/checkout@v4
-
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Deploy Test
-        run: |
-          bash scripts/deploy.sh test
+        run: bash scripts/deploy.sh test
 
   deploy-prod:
-    name: Deploy to Prod
     runs-on: ubuntu-latest
     needs: deploy-test
-    environment:
-      name: prod
-      url: https://prod.example.com
-
+    environment: prod
     steps:
       - uses: actions/checkout@v4
-
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Deploy Prod
-        run: |
-          bash scripts/deploy.sh prod
+        run: bash scripts/deploy.sh prod
+
