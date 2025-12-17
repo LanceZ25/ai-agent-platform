@@ -2,6 +2,23 @@
   "name": "agent-a",
   "version": "1.0.0",
   "model": "gpt-4",
-  "tools": []
+  "description": "Agent A answers general questions",
+  "prompt_path": "prompts/system.txt",
+  "tools": [],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "question": { "type": "string" }
+    },
+    "required": ["question"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "answer": { "type": "string" }
+    },
+    "required": ["answer"]
+  }
 }
+
 

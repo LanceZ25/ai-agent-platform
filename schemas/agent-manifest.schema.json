@@ -1,15 +1,42 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "required": ["name", "version", "model"],
+  "required": [
+    "name",
+    "version",
+    "model",
+    "prompt_path",
+    "inputs",
+    "outputs"
+  ],
   "properties": {
-    "name": { "type": "string" },
-    "version": { "type": "string" },
-    "model": { "type": "string" },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "prompt_path": {
+      "type": "string"
+    },
     "tools": {
       "type": "array",
       "items": { "type": "string" }
+    },
+    "inputs": {
+      "type": "object"
+    },
+    "outputs": {
+      "type": "object"
     }
-  }
+  },
+  "additionalProperties": false
 }
 

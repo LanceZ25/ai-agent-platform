@@ -1,0 +1,8 @@
+{
+  "input": {
+    "question": "What is CI/CD?"
+  },
+  "expected_output": {
+    "answer": "CI/CD stands for Continuous Integration and Continuous Deployment."
+  }
+}

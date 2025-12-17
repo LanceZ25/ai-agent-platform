@@ -1,0 +1,12 @@
+{
+  "input": {
+    "question": "What does JSON stand for?"
+  },
+  "assertions": [
+    {
+      "type": "contains",
+      "value": "JavaScript Object Notation"
+    }
+  ]
+}
+
