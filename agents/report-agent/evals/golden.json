@@ -1,0 +1,14 @@
+{
+  "input": {
+    "request_type": "POD",
+    "reference_id": "AWB123456"
+  },
+  "assertions": [
+    {
+      "type": "contains",
+      "value": "Proof of Delivery"
+    }
+  ]
+}
+
+

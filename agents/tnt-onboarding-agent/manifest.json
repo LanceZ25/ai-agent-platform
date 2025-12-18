@@ -1,0 +1,22 @@
+{
+  "name": "tnt-onboarding-agent",
+  "version": "1.0.0",
+  "model": "gpt-4",
+  "description": "Handles TNT Carrier onboarding instructions and configs",
+  "prompt_path": "prompts/system.txt",
+  "tools": [],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "carrier_request": { "type": "string" }
+    },
+    "required": ["carrier_request"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "onboarding_steps": { "type": "string" }
+    },
+    "required": ["onboarding_steps"]
+  }
+}
