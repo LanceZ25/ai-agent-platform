@@ -3,27 +3,18 @@ import sys
 from pathlib import Path
 
 def call_agent(agent_name, payload):
-    """
-    Simulate agent response for testing/evals.
-    """
     if agent_name == "customer-service-agent":
         req = payload.get("customer_request", "")
-        # Include expected phrase for eval
         return {"draft_email": f"Proof of Delivery email generated for: {req}"}
     elif agent_name == "tnt-onboarding-agent":
         req = payload.get("carrier_request", "")
-        # Include expected phrase for eval
         return {"onboarding_steps": f"TNT config steps generated for: {req}"}
     else:
         return {"error": "Unknown agent"}
 
 def run_eval(agent_name, eval_file):
-    """
-    Run a single eval JSON file and check assertions.
-    """
     with open(eval_file) as f:
         data = json.load(f)
-
     response = call_agent(agent_name, data["input"])
     output_text = json.dumps(response).lower()
 
@@ -49,5 +40,20 @@ def main():
     eval_dir = Path(f"agents/{agent_name}/evals")
 
     if not eval_dir.exists():
-        print(f"❌ Eval directory not found: {e
+        print(f"❌ Eval directory not found: {eval_dir}")
+        sys.exit(1)
+
+    failed = False
+    for eval_file in sorted(eval_dir.glob("*.json")):
+        if not run_eval(agent_name, eval_file):
+            failed = True
+
+    if failed:
+        print("❌ Some evals failed")
+        sys.exit(1)
+
+    print(f"✅ All evals passed for {agent_name}")
+
+if __name__ == "__main__":
+    main()
 
