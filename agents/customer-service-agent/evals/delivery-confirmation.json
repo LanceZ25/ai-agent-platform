@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "Has my package been delivered?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "delivered" }
+  ]
+}

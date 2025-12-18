@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "What label format does TNT require?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "label" }
+  ]
+}

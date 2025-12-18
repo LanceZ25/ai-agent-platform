@@ -1,0 +1,4 @@
+{
+  "input": { "customer_request": "My package is delayed" },
+  "assertions": [{ "type": "contains", "value": "apologies" }]
+}

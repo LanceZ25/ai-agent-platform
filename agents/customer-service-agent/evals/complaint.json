@@ -1,0 +1,4 @@
+{
+  "input": {"customer_request": "I want to file a complaint."},
+  "assertions": [{"type": "contains", "value": "complaint"}]
+}

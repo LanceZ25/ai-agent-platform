@@ -2,21 +2,30 @@
   "name": "customer-service-agent",
   "version": "1.0.0",
   "model": "gpt-4",
-  "description": "Generates draft emails for customer service requests",
+  "description": "Generates professional customer service draft emails for logistics inquiries.",
   "prompt_path": "prompts/system.txt",
   "tools": [],
   "inputs": {
     "type": "object",
     "properties": {
-      "customer_request": { "type": "string" }
+      "customer_request": {
+        "type": "string",
+        "description": "Customer inquiry or concern"
+      }
     },
-    "required": ["customer_request"]
+    "required": ["customer_request"],
+    "additionalProperties": false
   },
   "outputs": {
     "type": "object",
     "properties": {
-      "draft_email": { "type": "string" }
+      "draft_email": {
+        "type": "string",
+        "description": "Generated customer service email draft"
+      }
     },
-    "required": ["draft_email"]
+    "required": ["draft_email"],
+    "additionalProperties": false
   }
 }
+

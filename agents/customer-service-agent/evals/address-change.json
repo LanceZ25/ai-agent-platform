@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "I need to change my delivery address."
+  },
+  "assertions": [
+    { "type": "contains", "value": "address" }
+  ]
+}

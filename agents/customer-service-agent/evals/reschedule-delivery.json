@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "Can I reschedule my delivery?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "schedule" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "Can you send me the proof of delivery?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "proof of delivery" }
+  ]
+}
