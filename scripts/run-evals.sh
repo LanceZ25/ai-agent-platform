@@ -2,5 +2,5 @@
 set -e
 
 echo "🔍 Running evals for report-agent..."
-python evals/engine/eval-runner.py report-agent
+python ./agents/report-agent/evals/engine/eval-runner.py report-agent
 
