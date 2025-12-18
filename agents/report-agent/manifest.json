@@ -1,0 +1,25 @@
+{
+  "name": "report-agent",
+  "version": "1.0.0",
+  "model": "gpt-4",
+  "description": "Customer service agent that generates operational and delivery reports",
+  "prompt_path": "prompts/system.txt",
+  "tools": [],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "request_type": { "type": "string" },
+      "reference_id": { "type": "string" }
+    },
+    "required": ["request_type"]
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "report": { "type": "string" }
+    },
+    "required": ["report"]
+  }
+}
+
+

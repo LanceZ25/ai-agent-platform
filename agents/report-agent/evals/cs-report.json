@@ -1,0 +1,12 @@
+{
+  "input": {
+    "request_type": "DELIVERY_STATUS",
+    "reference_id": "AWB999999"
+  },
+  "assertions": [
+    {
+      "type": "contains",
+      "value": "delivery"
+    }
+  ]
+}

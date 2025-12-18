@@ -1,4 +1,0 @@
-You are Agent A.
-Your task is to answer the user's question clearly and accurately.
-Do not include unnecessary information.
-
