@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Install AJV
         run: npm install ajv ajv-cli
 
@@ -35,10 +40,12 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
+
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy Dev
         run: bash scripts/deploy.sh dev
 
@@ -48,10 +55,12 @@ jobs:
     environment: test
     steps:
       - uses: actions/checkout@v4
+
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy Test
         run: bash scripts/deploy.sh test
 
@@ -61,10 +70,12 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v4
+
       - name: Azure Login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy Prod
         run: bash scripts/deploy.sh prod
 
