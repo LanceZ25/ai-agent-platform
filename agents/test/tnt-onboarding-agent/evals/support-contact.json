@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "Who do we contact for TNT support?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "support" }
+  ]
+}

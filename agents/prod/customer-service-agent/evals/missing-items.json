@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "Some items are missing from my package."
+  },
+  "assertions": [
+    { "type": "contains", "value": "missing" }
+  ]
+}

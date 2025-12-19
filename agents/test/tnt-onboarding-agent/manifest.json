@@ -1,0 +1,31 @@
+{
+  "name": "tnt-onboarding-agent",
+  "version": "1.0.0",
+  "model": "gpt-4",
+  "description": "Provides step-by-step guidance for onboarding TNT as a carrier integration.",
+  "prompt_path": "prompts/system.txt",
+  "tools": [],
+  "inputs": {
+    "type": "object",
+    "properties": {
+      "carrier_request": {
+        "type": "string",
+        "description": "Carrier onboarding question or request"
+      }
+    },
+    "required": ["carrier_request"],
+    "additionalProperties": false
+  },
+  "outputs": {
+    "type": "object",
+    "properties": {
+      "onboarding_steps": {
+        "type": "string",
+        "description": "TNT onboarding steps and configuration guidance"
+      }
+    },
+    "required": ["onboarding_steps"],
+    "additionalProperties": false
+  }
+}
+

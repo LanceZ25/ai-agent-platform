@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "Configure TNT webhooks."
+  },
+  "assertions": [
+    { "type": "contains", "value": "webhook" }
+  ]
+}

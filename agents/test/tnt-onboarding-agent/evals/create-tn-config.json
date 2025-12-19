@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "Create TNT carrier configuration."
+  },
+  "assertions": [
+    { "type": "contains", "value": "tnt" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "What checks are needed before TNT go-live?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "go-live" }
+  ]
+}

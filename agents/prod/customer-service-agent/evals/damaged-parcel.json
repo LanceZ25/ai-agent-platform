@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "My parcel arrived damaged."
+  },
+  "assertions": [
+    { "type": "contains", "value": "sorry" }
+  ]
+}

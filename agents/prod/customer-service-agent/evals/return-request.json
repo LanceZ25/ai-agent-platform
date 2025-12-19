@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "How do I return my package?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "return" }
+  ]
+}

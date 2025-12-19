@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "What are TNT SLA requirements?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "sla" }
+  ]
+}

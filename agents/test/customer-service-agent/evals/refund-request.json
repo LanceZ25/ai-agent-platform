@@ -1,0 +1,8 @@
+{
+  "input": {
+    "customer_request": "I want a refund for my order."
+  },
+  "assertions": [
+    { "type": "contains", "value": "refund" }
+  ]
+}

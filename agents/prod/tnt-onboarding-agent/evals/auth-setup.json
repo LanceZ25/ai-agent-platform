@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "How do we set up TNT authentication?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "auth" }
+  ]
+}

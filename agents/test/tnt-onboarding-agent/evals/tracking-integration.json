@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "How do we integrate TNT tracking?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "tracking" }
+  ]
+}

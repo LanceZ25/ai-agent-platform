@@ -1,0 +1,8 @@
+{
+  "input": {
+    "carrier_request": "How do we configure TNT pickups?"
+  },
+  "assertions": [
+    { "type": "contains", "value": "pickup" }
+  ]
+}
