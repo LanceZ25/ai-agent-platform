@@ -32,10 +32,20 @@ done
 
 echo "✅ Files uploaded to Blob storage."
 
-# Step 2: Register agents in Foundry
+# --------------------------------------------------
+# Step 2: Ensure Python dependencies are installed
+# --------------------------------------------------
+echo "📦 Installing Python dependencies..."
+python -m pip install --upgrade pip
+python -m pip install --pre azure-ai-projects azure-identity
+
+# --------------------------------------------------
+# Step 3: Register agents in Foundry
+# --------------------------------------------------
 python scripts/register-agent.py "$ENV"
 
 echo "🎉 Agents deployed and registered in '$ENV' environment."
+
 
 
 
