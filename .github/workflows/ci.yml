@@ -46,7 +46,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy Dev
+      - name: Deploy Dev Agents
         run: bash scripts/deploy.sh dev
 
   deploy-test:

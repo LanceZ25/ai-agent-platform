@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "ai-agent-platform",
+			"path": ".."
+		},
+		{
+			"name": "deploy",
+			"path": "../../azureee/deploy"
+		},
+		{
+			"name": "infra",
+			"path": "../../azureee/infra"
+		}
+	],
+	"settings": {}
+}

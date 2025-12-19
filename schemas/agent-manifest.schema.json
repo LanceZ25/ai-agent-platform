@@ -10,32 +10,17 @@
     "outputs"
   ],
   "properties": {
-    "name": {
-      "type": "string",
-      "minLength": 1
-    },
-    "version": {
-      "type": "string"
-    },
-    "model": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "prompt_path": {
-      "type": "string"
-    },
+    "name": { "type": "string" },
+    "version": { "type": "string" },
+    "model": { "type": "string" },
+    "description": { "type": "string" },
+    "prompt_path": { "type": "string" },
     "tools": {
       "type": "array",
       "items": { "type": "string" }
     },
-    "inputs": {
-      "type": "object"
-    },
-    "outputs": {
-      "type": "object"
-    }
+    "inputs": { "type": "object" },
+    "outputs": { "type": "object" }
   },
   "additionalProperties": false
 }
