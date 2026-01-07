@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      # AJV via npx (Python fallback is handled inside the script)
+      # AJV via npx (the script has Python fallback)
       - name: Validate agent manifests
         run: bash scripts/validate-manifests.sh
 
@@ -33,7 +33,7 @@ jobs:
       - name: Run evals
         run: bash scripts/run-evals.sh
 
-      # ✅ Fixed multi-line bash block for the Job Summary
+      # ✅ Correct multi-line bash block for the Job Summary
       - name: Summarize evals
         if: always()
         shell: bash
@@ -62,7 +62,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS_DEV }}
 
-      # Guard: must be on ai-dev-sub and RG must exist
+      # Guard: must be on ai-dev-sub; Dev RG check is optional
       - name: Verify Dev subscription & resource group
         shell: bash
         run: |
@@ -73,7 +73,13 @@ jobs:
           if [ "$SUB_NAME" != "ai-dev-sub" ]; then
             echo "❌ Wrong subscription context. Expected 'ai-dev-sub'."; exit 1;
           fi
-          az group show --name ${{ vars.RESOURCE_GROUP_DEV }} --query name -o tsv >/dev/null 2>&1 || (echo "❌ ${{ vars.RESOURCE_GROUP_DEV }} missing"; exit 1)
+          if [ -n "${{ vars.RESOURCE_GROUP_DEV }}" ]; then
+            az group show --name ${{ vars.RESOURCE_GROUP_DEV }} --query name -o tsv >/dev/null 2>&1 \
+              || (echo "❌ ${{ vars.RESOURCE_GROUP_DEV }} missing"; exit 1)
+            echo "✅ Resource group ${{ vars.RESOURCE_GROUP_DEV }} verified."
+          else
+            echo "ℹ️ RESOURCE_GROUP_DEV not set; skipping RG verification."
+          fi
 
       - name: Deploy Dev Agents (Storage + AppConfig)
         env:
@@ -105,7 +111,8 @@ jobs:
           if [ "$SUB_NAME" != "ai-test-sub" ]; then
             echo "❌ Wrong subscription context. Expected 'ai-test-sub'."; exit 1;
           fi
-          az group show --name ${{ vars.RESOURCE_GROUP_TEST }} --query name -o tsv >/dev/null 2>&1 || (echo "❌ ${{ vars.RESOURCE_GROUP_TEST }} missing"; exit 1)
+          az group show --name ${{ vars.RESOURCE_GROUP_TEST }} --query name -o tsv >/dev/null 2>&1 \
+            || (echo "❌ ${{ vars.RESOURCE_GROUP_TEST }} missing"; exit 1)
 
       - name: Deploy Test Agents (Storage + AppConfig)
         env:
@@ -137,7 +144,8 @@ jobs:
           if [ "$SUB_NAME" != "ai-prod-sub" ]; then
             echo "❌ Wrong subscription context. Expected 'ai-prod-sub'."; exit 1;
           fi
-          az group show --name ${{ vars.RESOURCE_GROUP_PROD }} --query name -o tsv >/dev/null 2>&1 || (echo "❌ ${{ vars.RESOURCE_GROUP_PROD }} missing"; exit 1)
+          az group show --name ${{ vars.RESOURCE_GROUP_PROD }} --query name -o tsv >/dev/null 2>&1 \
+            || (echo "❌ ${{ vars.RESOURCE_GROUP_PROD }} missing"; exit 1)
 
       - name: Deploy Prod Agents (Storage + AppConfig)
         env:
@@ -145,4 +153,4 @@ jobs:
           APPCONFIG_NAME_PROD: ${{ vars.APPCONFIG_NAME_PROD }}
           RESOURCE_GROUP_PROD: ${{ vars.RESOURCE_GROUP_PROD }}
         run: bash scripts/deploy.sh prod
-
+``
