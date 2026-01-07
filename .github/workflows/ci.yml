@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      # AJV via npx (the script has Python fallback)
+      # AJV via npx; Python fallback is handled inside the script
       - name: Validate agent manifests
         run: bash scripts/validate-manifests.sh
 
@@ -33,7 +33,7 @@ jobs:
       - name: Run evals
         run: bash scripts/run-evals.sh
 
-      # ✅ Correct multi-line bash block for the Job Summary
+      # Summarize eval results in the Actions Job Summary
       - name: Summarize evals
         if: always()
         shell: bash
@@ -153,4 +153,4 @@ jobs:
           APPCONFIG_NAME_PROD: ${{ vars.APPCONFIG_NAME_PROD }}
           RESOURCE_GROUP_PROD: ${{ vars.RESOURCE_GROUP_PROD }}
         run: bash scripts/deploy.sh prod
-``
+
