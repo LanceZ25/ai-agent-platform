@@ -1,3 +1,4 @@
+
 name: AI Agent CI/CD
 
 on:
@@ -22,60 +23,116 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install AJV
-        run: npm install ajv ajv-cli
-
+      # Validate manifests (AJV via npx; Python fallback inside the script)
       - name: Validate agent manifests
         run: bash scripts/validate-manifests.sh
 
+      # Unit tests
       - name: Run tests
         run: bash scripts/run-tests.sh
 
+      # Golden evals — MUST fail CI on regressions
       - name: Run evals
         run: bash scripts/run-evals.sh
+
+      # Show eval results in Actions Summary
+      - name: Summarize evals
+        if: always()
+        run: |
+          echo "### Agent Evals Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -f evals/results/latest.json ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            cat evals/results/latest.json >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No eval results found." >> $GITHUB_STEP_SUMMARY
 
   deploy-dev:
     runs-on: ubuntu-latest
     needs: build-test-eval
     if: github.ref == 'refs/heads/main'
+    environment: dev
     steps:
       - uses: actions/checkout@v4
 
-      - name: Azure Login
+      - name: Azure Login (Dev)
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS_DEV }}
 
-      - name: Deploy Dev Agents
+      # Guard: ensure we are on ai-dev-sub
+      - name: Verify Dev subscription context
+        run: |
+          SUB_NAME=$(az account show --query name -o tsv)
+          SUB_ID=$(az account show --query id -o tsv)
+          echo "Using subscription: $SUB_NAME ($SUB_ID)"
+          if [ "$SUB_NAME" != "ai-dev-sub" ]; then
+            echo "❌ Wrong subscription context. Expected 'ai-dev-sub'."; exit 1;
+          fi
+          az group show --name ${{ vars.RESOURCE_GROUP_DEV }} --query name -o tsv >/dev/null 2>&1 || (echo "❌ ${{ vars.RESOURCE_GROUP_DEV }} missing"; exit 1)
+
+      - name: Deploy Dev Agents (Storage + AppConfig)
+        env:
+          STORAGE_ACCOUNT_DEV: ${{ vars.STORAGE_ACCOUNT_DEV }}
+          APPCONFIG_NAME_DEV: ${{ vars.APPCONFIG_NAME_DEV }}
+          RESOURCE_GROUP_DEV: ${{ vars.RESOURCE_GROUP_DEV }}
         run: bash scripts/deploy.sh dev
 
   deploy-test:
     runs-on: ubuntu-latest
     needs: deploy-dev
-    environment: test
+    environment: test   # approvals configured
     steps:
       - uses: actions/checkout@v4
 
-      - name: Azure Login
+      - name: Azure Login (Test)
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS_TEST }}
 
-      - name: Deploy Test
+      # Guard: ensure we are on ai-test-sub and RG exists
+      - name: Verify Test subscription context
+        run: |
+          SUB_NAME=$(az account show --query name -o tsv)
+          SUB_ID=$(az account show --query id -o tsv)
+          echo "Using subscription: $SUB_NAME ($SUB_ID)"
+          if [ "$SUB_NAME" != "ai-test-sub" ]; then
+            echo "❌ Wrong subscription context. Expected 'ai-test-sub'."; exit 1;
+          fi
+          az group show --name ${{ vars.RESOURCE_GROUP_TEST }} --query name -o tsv >/dev/null 2>&1 || (echo "❌ ${{ vars.RESOURCE_GROUP_TEST }} missing"; exit 1)
+
+      - name: Deploy Test Agents (Storage + AppConfig)
+        env:
+          STORAGE_ACCOUNT_TEST: ${{ vars.STORAGE_ACCOUNT_TEST }}
+          APPCONFIG_NAME_TEST: ${{ vars.APPCONFIG_NAME_TEST }}
+          RESOURCE_GROUP_TEST: ${{ vars.RESOURCE_GROUP_TEST }}
         run: bash scripts/deploy.sh test
 
   deploy-prod:
     runs-on: ubuntu-latest
     needs: deploy-test
-    environment: prod
+    environment: prod   # approvals configured
     steps:
       - uses: actions/checkout@v4
 
-      - name: Azure Login
+      - name: Azure Login (Prod)
         uses: azure/login@v2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS_PROD }}
 
-      - name: Deploy Prod
+      # Guard: ensure we are on ai-prod-sub and RG exists
+      - name: Verify Prod subscription context
+        run: |
+          SUB_NAME=$(az account show --query name -o tsv)
+          SUB_ID=$(az account show --query id -o tsv)
+          echo "Using subscription: $SUB_NAME ($SUB_ID)"
+          if [ "$SUB_NAME" != "ai-prod-sub" ]; then
+            echo "❌ Wrong subscription context. Expected 'ai-prod-sub'."; exit 1;
+          fi
+          az group show --name ${{ vars.RESOURCE_GROUP_PROD }} --query name -o tsv >/dev/null 2>&1 || (echo "❌ ${{ vars.RESOURCE_GROUP_PROD }} missing"; exit 1)
+
+      - name: Deploy Prod Agents (Storage + AppConfig)
+        env:
+          STORAGE_ACCOUNT_PROD: ${{ vars.STORAGE_ACCOUNT_PROD }}
+          APPCONFIG_NAME_PROD: ${{ vars.APPCONFIG_NAME_PROD }}
+          RESOURCE_GROUP_PROD: ${{ vars.RESOURCE_GROUP_PROD }}
         run: bash scripts/deploy.sh prod
-
