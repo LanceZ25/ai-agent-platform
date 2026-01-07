@@ -1,0 +1,302 @@
+[
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\address-change.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\complaint.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\damaged-parcel.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\delivery-confirmation.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\delivery-delay.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\missing-items.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\pod-request.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\refund-request.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\reschedule-delivery.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\dev\\customer-service-agent\\evals\\return-request.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\auth-setup.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\create-tn-config.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\go-live-check.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\label-format.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\pickup-setup.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\rate-card.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\sla-requirements.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\support-contact.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\tracking-integration.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\dev\\tnt-onboarding-agent\\evals\\webhook-config.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\address-change.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\complaint.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\damaged-parcel.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\delivery-confirmation.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\delivery-delay.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\missing-items.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\pod-request.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\refund-request.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\reschedule-delivery.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\test\\customer-service-agent\\evals\\return-request.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\auth-setup.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\create-tn-config.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\go-live-check.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\label-format.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\pickup-setup.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\rate-card.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\sla-requirements.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\support-contact.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\tracking-integration.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\test\\tnt-onboarding-agent\\evals\\webhook-config.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\address-change.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\complaint.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\damaged-parcel.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\delivery-confirmation.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\delivery-delay.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\missing-items.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\pod-request.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\refund-request.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\reschedule-delivery.json",
+    "passed": true
+  },
+  {
+    "agent": "customer-service-agent",
+    "eval": "agents\\prod\\customer-service-agent\\evals\\return-request.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\auth-setup.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\create-tn-config.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\go-live-check.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\label-format.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\pickup-setup.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\rate-card.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\sla-requirements.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\support-contact.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\tracking-integration.json",
+    "passed": true
+  },
+  {
+    "agent": "tnt-onboarding-agent",
+    "eval": "agents\\prod\\tnt-onboarding-agent\\evals\\webhook-config.json",
+    "passed": true
+  }
+]

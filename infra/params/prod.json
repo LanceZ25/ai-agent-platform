@@ -1,8 +1,0 @@
-{
-  "storageAccountName": { "value": "carioaistoragedev" },
-  "keyVaultName": { "value": "cario-ai-vault-dev" },
-  "appConfigName": { "value": "cario-appconfig-dev" },
-  "appInsightsName": { "value": "cario-ai-insights-dev" },
-  "aifName": { "value": "cario-aifoundry-dev" },
-  "location": { "value": "australiaeast" }
-}

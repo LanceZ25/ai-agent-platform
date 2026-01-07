@@ -1,46 +1,40 @@
-#!/usr/bin/env python3
-import sys
-from pathlib import Path
-from azure.identity import DefaultAzureCredential
-from azure.ai.projects import AIProjectClient
 
-# -----------------------------
-# Config
-# -----------------------------
-ENV = sys.argv[1] if len(sys.argv) > 1 else "dev"
+#!/usr/bin/env python
+import argparse, subprocess, sys
 
-FOUNDRY_ENDPOINT = "https://carioaifoundry-dev-01.services.ai.azure.com/"
-STORAGE_ACCOUNT = "carioaistoragedev"
+def run(cmd):
+    print(">", " ".join(cmd))
+    res = subprocess.run(cmd)
+    if res.returncode != 0:
+        sys.exit(res.returncode)
 
-AGENTS_DIR = Path(__file__).parent.parent / "agents"
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--env", required=True, choices=["dev","test","prod"])
+    p.add_argument("--agent", required=True)
+    p.add_argument("--storage-account", required=True)
+    p.add_argument("--appconfig-name", required=True)
+    args = p.parse_args()
 
-credential = DefaultAzureCredential()
-client = AIProjectClient(endpoint=FOUNDRY_ENDPOINT, credential=credential)
+    agents_container = f"agents-{args.env}"
+    evals_container  = f"eval-results-{args.env}"
 
-# -----------------------------
-# Find all agent folders (skip dev/test/prod root folders)
-# -----------------------------
-agents_to_register = [
-    folder for folder in AGENTS_DIR.iterdir()
-    if folder.is_dir() and folder.name not in {"dev", "test", "prod"}
-]
+    manifest_url = f"https://{args.storage_account}.blob.core.windows.net/{agents_container}/{args.agent}/manifest.json"
+    prompt_url   = f"https://{args.storage_account}.blob.core.windows.net/{agents_container}/{args.agent}/prompts/system.txt"
+    evals_url    = f"https://{args.storage_account}.blob.core.windows.net/{evals_container}"
 
-print(f"🔹 Agents found: {[a.name for a in agents_to_register]}")
+    # Keys visible to Foundry/runner
+    run(["az", "appconfig", "kv", "set", "--name", args.appconfig_name,
+         "--key", f"agents:{args.env}:{args.agent}:manifest", "--value", manifest_url, "--yes"])
+    run(["az", "appconfig", "kv", "set", "--name", args.appconfig_name,
+         "--key", f"agents:{args.env}:{args.agent}:prompt", "--value", prompt_url, "--yes"])
+    run(["az", "appconfig", "kv", "set", "--name", args.appconfig_name,
+         "--key", f"agents:{args.env}:{args.agent}:evals", "--value", evals_url, "--yes"])
 
-# -----------------------------
-# Register or update agents
-# -----------------------------
-for agent_folder in agents_to_register:
-    agent_name = agent_folder.name
-    manifest_url = f"https://{STORAGE_ACCOUNT}.blob.core.windows.net/agents/{ENV}/{agent_name}/manifest.json"
-    print(f"🔹 Registering/updating {agent_name} from {manifest_url}...")
-    try:
-        agent = client.agents.create_or_update(
-            agent_name=agent_name,
-            manifest_url=manifest_url
-        )
-        print(f"✅ Agent {agent_name} registered/updated successfully")
-    except Exception as e:
-        print(f"❌ SDK method error: {e}")
+    print(f"Registered {args.agent} ({args.env}) in App Config: {args.appconfig_name}")
 
-print(f"🎉 All agents for environment '{ENV}' processed.")
+if __name__ == "__main__":
+    main()
+
+
+

@@ -23,28 +23,31 @@ jobs:
         with:
           python-version: "3.11"
 
-      # Validate manifests (AJV via npx; Python fallback inside the script)
+      # AJV via npx (Python fallback is handled inside the script)
       - name: Validate agent manifests
         run: bash scripts/validate-manifests.sh
 
-      # Unit tests
       - name: Run tests
         run: bash scripts/run-tests.sh
 
-      # Golden evals — MUST fail CI on regressions
       - name: Run evals
         run: bash scripts/run-evals.sh
 
-      # Show eval results in Actions Summary
+      # ✅ Fixed multi-line bash block for the Job Summary
       - name: Summarize evals
         if: always()
+        shell: bash
         run: |
-          echo "### Agent Evals Summary" >> $GITHUB_STEP_SUMMARY
-          if [ -f evals/results/latest.json ]; then
-            echo "" >> $GITHUB_STEP_SUMMARY
-            cat evals/results/latest.json >> $GITHUB_STEP_SUMMARY
+          set -euo pipefail
+          echo "### Agent Evals Summary" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f "evals/results/latest.json" ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "```json" >> "$GITHUB_STEP_SUMMARY"
+            cat evals/results/latest.json >> "$GITHUB_STEP_SUMMARY"
+            echo "```" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "No eval results found." >> $GITHUB_STEP_SUMMARY
+            echo "No eval results found." >> "$GITHUB_STEP_SUMMARY"
+          fi
 
   deploy-dev:
     runs-on: ubuntu-latest
@@ -59,9 +62,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS_DEV }}
 
-      # Guard: ensure we are on ai-dev-sub
-      - name: Verify Dev subscription context
+      # Guard: must be on ai-dev-sub and RG must exist
+      - name: Verify Dev subscription & resource group
+        shell: bash
         run: |
+          set -euo pipefail
           SUB_NAME=$(az account show --query name -o tsv)
           SUB_ID=$(az account show --query id -o tsv)
           echo "Using subscription: $SUB_NAME ($SUB_ID)"
@@ -80,7 +85,7 @@ jobs:
   deploy-test:
     runs-on: ubuntu-latest
     needs: deploy-dev
-    environment: test   # approvals configured
+    environment: test   # approvals configured in GitHub Environments
     steps:
       - uses: actions/checkout@v4
 
@@ -89,9 +94,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS_TEST }}
 
-      # Guard: ensure we are on ai-test-sub and RG exists
-      - name: Verify Test subscription context
+      # Guard: must be on ai-test-sub and RG must exist
+      - name: Verify Test subscription & resource group
+        shell: bash
         run: |
+          set -euo pipefail
           SUB_NAME=$(az account show --query name -o tsv)
           SUB_ID=$(az account show --query id -o tsv)
           echo "Using subscription: $SUB_NAME ($SUB_ID)"
@@ -110,7 +117,7 @@ jobs:
   deploy-prod:
     runs-on: ubuntu-latest
     needs: deploy-test
-    environment: prod   # approvals configured
+    environment: prod   # approvals configured in GitHub Environments
     steps:
       - uses: actions/checkout@v4
 
@@ -119,9 +126,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS_PROD }}
 
-      # Guard: ensure we are on ai-prod-sub and RG exists
-      - name: Verify Prod subscription context
+      # Guard: must be on ai-prod-sub and RG must exist
+      - name: Verify Prod subscription & resource group
+        shell: bash
         run: |
+          set -euo pipefail
           SUB_NAME=$(az account show --query name -o tsv)
           SUB_ID=$(az account show --query id -o tsv)
           echo "Using subscription: $SUB_NAME ($SUB_ID)"
@@ -136,3 +145,4 @@ jobs:
           APPCONFIG_NAME_PROD: ${{ vars.APPCONFIG_NAME_PROD }}
           RESOURCE_GROUP_PROD: ${{ vars.RESOURCE_GROUP_PROD }}
         run: bash scripts/deploy.sh prod
+

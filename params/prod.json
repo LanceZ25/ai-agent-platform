@@ -1,0 +1,21 @@
+
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountName": { "value": "carioaistorageprod" },
+    "keyVaultName": { "value": "cario-ai-vault-prod" },
+    "appConfigName": { "value": "cario-appconfig-prod" },
+    "appInsightsName": { "value": "cario-ai-insights-prod" },
+    "aifName": { "value": "cario-aifoundry-prod" },
+    "location": { "value": "australiaeast" },
+    "tenantId": { "value": "89ad898b-5bd9-47c4-bb8d-1d3bcc077c84" },
+    "publicNetworkAccess": { "value": "Enabled" },
+    "kind": { "value": "AIServices" },
+    "skuName": { "value": "S0" }
+  }
+}
+
+
+
+
